@@ -4,7 +4,8 @@ let w;
 let h;
 
 let polyShadow;
-let polyBlurry;
+let polyBlurry1;//the transition part between building and distant building
+let polyBlurry2;//the distant building
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
@@ -17,7 +18,8 @@ function setup() {
   y=h/32;//unit coordinate for y
 
   shadow();
-  blurryBg();
+  blurryBg1();//transition
+  blurryBg2();//distant building
   //building();
 
   noLoop();
@@ -67,7 +69,8 @@ function draw() {
   endShape(CLOSE);
 
   waterColor(polyShadow,71,41,50,20);
-  waterColor(polyBlurry,133,123,20,5);
+  waterColor(polyBlurry1,133,123,20,5);//transition
+  waterColor(polyBlurry2,140,170,46,10);//distant building
 
 
 }
@@ -126,7 +129,7 @@ function shadow(){
   polyShadow=new Poly(v);
 }
 
-function blurryBg(){
+function blurryBg1(){
   const v=[];
   // v.push(createVector(16*x,16*y));
   // v.push(createVector(18*x,14.5*y));
@@ -145,17 +148,26 @@ function blurryBg(){
   // v.push(createVector(29.4*x,10.7*y));
   // v.push(createVector(30*x,12*y));
   // v.push(createVector(32*x,16*y));
+  v.push(createVector(16*x,16*y));
+  for (let i=0;i<random(5);i++){
+    let xScale=random(16,24);
+    let yScale=random(15,16);
+    v.push(createVector(xScale*x,yScale*y));
+  }
+  v.push(createVector(24*x,16*y));
+  polyBlurry1=new Poly(v);
+}
 
-v.push(createVector(16*x,16*y));
-  for (let i=0;i<random(15);i++){
-    let xScale=random(16,32);
-    let yScale=random(9,16);
+function blurryBg2(){
+  const v=[];
+  v.push(createVector(24*x,16*y));
+  for (let i=0;i<random(10);i++){
+    let xScale=random(24,32);
+    let yScale=random(5,16);
     v.push(createVector(xScale*x,yScale*y));
   }
   v.push(createVector(32*x,16*y));
-
-
-  polyBlurry=new Poly(v);
+  polyBlurry2=new Poly(v);
 }
 
 class Poly{
@@ -249,7 +261,8 @@ function updateDimensions() {
   y = h / 32;
 
   shadow();
-  blurryBg();
+  blurryBg1();
+  blurryBg2();
 }
 
 // 响应窗口大小变化
