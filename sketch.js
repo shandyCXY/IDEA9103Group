@@ -20,7 +20,6 @@ function setup() {
   shadow();
   blurryBg1();//transition
   blurryBg2();//distant building
-  //building();
 
   noLoop();
 }
@@ -69,13 +68,9 @@ function draw() {
   endShape(CLOSE);
 
   waterColor(polyShadow,71,41,50,20);
-  waterColor(polyBlurry1,133,123,20,5);//transition
-  waterColor(polyBlurry2,140,170,46,10);//distant building
-
-
+  waterColor(polyBlurry1,133,123,20,10);//transition
+  waterColor(polyBlurry2,133,150,30,5);//distant building
 }
-
-
 
 // function building(){
 //   const v=[];
