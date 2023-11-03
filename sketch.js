@@ -429,6 +429,13 @@ function updateDimensions() {
   blurryBg2();
 }
 
+function updateWater(){
+  scl = windowHeight / 140;
+  cols = windowWidth / scl;
+  rows = windowHeight / scl;
+  yoff = 0;
+}
+
 // 响应窗口大小变化
 function windowResized() {
   clear();
@@ -436,6 +443,7 @@ function windowResized() {
   brushAmount = width / brushWidth;
   drawSkyEllipse();
   updateDimensions();
+  updateWater();
   resizeCanvas(windowWidth, windowHeight);
   
 }
