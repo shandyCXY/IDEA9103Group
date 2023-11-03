@@ -218,9 +218,10 @@ function blurryBg1(){
 
 function blurryBg2(){
   const v=[];
-  v.push(createVector(24*x,16*y));
+  v.push(createVector(20*x,16*y));
   for (let i=0;i<random(10);i++){
-    let xScale=random(0.24,0.32)*i;
+    let xScale=constrain(random(24,32)*i/2,24,32);
+    //let xScale=random(24,32)*i/2;
     let yScale=random(5,16);
     v.push(createVector(xScale*x,yScale*y));
   }
@@ -329,8 +330,9 @@ function windowResized() {
   brushWidth = height / 64;
   brushAmount = width / brushWidth;
   drawSkyEllipse();
-  resizeCanvas(windowWidth, windowHeight);
   updateDimensions();
+  resizeCanvas(windowWidth, windowHeight);
+  
 }
 
 //Draw the first line of ellipses using lerpColor() and color arrays.
