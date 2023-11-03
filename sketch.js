@@ -217,19 +217,19 @@ function waterSurface(){
     }
     console.log(y);
 
-    if (y < 8) {
-      fill(waterColorsLerpD[y]);
+    if (y < 14) {
+      fill(waterColorsLerpA[y%8]);
     } 
 
-    else if (y>=8 && y<27){
-      fill(waterColorsLerpC[y % 8]);  
+    else if (y>=14 && y<27){
+      fill(waterColorsLerpB[y % 8]);  
     }
-    else if (y>=27 && y<=45) {
-      fill(waterColorsLerpB[y % 8]);
+    else if (y>=27 && y<=50) {
+      fill(waterColorsLerpC[y % 8]);
  
     } 
     else {
-      fill(waterColorsLerpA[y % 8]);
+      fill(waterColorsLerpD[y % 8]);
       
     }
     yoff += inc; 
