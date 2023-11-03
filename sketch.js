@@ -13,7 +13,7 @@ let brushWidth;
 let brushAmount;
 
 let inc = 0.1;
-let scl = 10; //segmet size
+let scl = 6; //segmet size
 let cols, rows;
 
 let waterColorsFrom = [];
@@ -221,10 +221,10 @@ function waterSurface(){
       fill(waterColorsLerpD[y]);
     } 
 
-    else if (y>=8 && y<18){
+    else if (y>=8 && y<27){
       fill(waterColorsLerpC[y % 8]);  
     }
-    else if (y>=18 && y<=27) {
+    else if (y>=27 && y<=45) {
       fill(waterColorsLerpB[y % 8]);
  
     } 
