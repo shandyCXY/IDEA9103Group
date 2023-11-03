@@ -199,7 +199,7 @@ function draw() {
 function waterSurface(){
   push();
   randomSeed(45);
-  translate(0, h/ 2);
+  translate(0, windowHeight/ 2);
   let yoff = 0;
   for (let y = 0; y < rows / 2; y++) {//"i" stands for "y"
     let xoff= 0;
