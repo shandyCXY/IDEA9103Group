@@ -13,7 +13,7 @@ let brushWidth;
 let brushAmount;
 
 let inc = 0.1;
-let scl = 6; //segmet size
+let scl; //segmet size
 let cols, rows;
 
 let waterColorsFrom = [];
@@ -82,7 +82,8 @@ function setup() {
   //The amount of brush is the window's width divides the brush's width.
   brushAmount = width / brushWidth;
 
-   // cols = floor(windowWidth / scl);
+  scl = windowHeight/140;//size of segment
+  // cols = floor(windowWidth / scl);
   // rows = floor(windowHeight / scl);
   cols=windowWidth/scl;
   rows=windowHeight/scl;
@@ -198,7 +199,7 @@ function draw() {
 function waterSurface(){
   push();
   randomSeed(45);
-  translate(0, windowHeight / 2);
+  translate(0, height / 2);
   let yoff = 0;
   for (let y = 0; y < rows / 2; y++) {//"i" stands for "y"
     let xoff= 0;
