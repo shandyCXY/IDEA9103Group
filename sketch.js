@@ -220,7 +220,7 @@ function blurryBg2(){
   const v=[];
   v.push(createVector(24*x,16*y));
   for (let i=0;i<random(10);i++){
-    let xScale=random(24,32);
+    let xScale=random(0.24,0.32)*i;
     let yScale=random(5,16);
     v.push(createVector(xScale*x,yScale*y));
   }
