@@ -12,6 +12,10 @@ let skyLerpEllipseD = [];
 let brushWidth;
 let brushAmount;
 
+let inc = 0.1;
+let scl = 10; //segmet size
+let cols, rows;
+
 let x;
 let y;
 let w;
@@ -90,6 +94,8 @@ function draw() {
 
   drawSkyEllipse();
 
+  waterSurface();
+
   //waterColor(poly,color(71,41,50));
 
   //color of building
@@ -133,6 +139,46 @@ function draw() {
   waterColor(polyShadow,71,41,50,20);
   waterColor(polyBlurry1,20,70,10,10);//transition
   waterColor(polyBlurry2,40,90,30,5);//distant building
+}
+
+function waterSurface(){
+  push();
+  randomSeed(45);
+  translate(0, windowHeight / 2);
+  let yoff = 0;
+  for (let i = 0; i < rows / 2; i++) {//"i" stands for "y"
+    let xoff= 0;
+    for (let j = 0; j < cols; j++) {//"j" stands for "x"
+      let angle = noise(xoff, yoff) * TWO_PI;
+      let v = p5.Vector.fromAngle(angle * -0.2);
+      xoff += inc;
+      //rect(x*scl,y*scl,scl,scl);
+      noStroke();
+
+      push();
+      translate(i * scl, j * scl);
+      rotate(v.heading());
+      rect(0, 0, 23, 4);
+      pop();
+    }
+
+    if (i < 9) {
+      fill(skyColorsLerpD[i]);
+    } 
+    else if (9 < i < 18) {
+      fill(skyColorsLerpC[i % 9]);  
+    } 
+    else if (18 < i < 27) {
+      fill(skyColorsLerpB[i % 9]);
+ 
+    } 
+    else {
+      fill(skyColorsLerpA[i % 9]);
+      
+    }
+    yoff += inc; 
+  }
+  pop();
 }
 
 // function building(){
