@@ -7,7 +7,7 @@ canvas {
   display: block;
 }
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   div.example {
     display: none;
   }
@@ -27,4 +27,4 @@ body {
   body {
     background-color: lavender;
   }
-}
+} */

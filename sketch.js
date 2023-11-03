@@ -1,3 +1,17 @@
+let skyColorsFrom = [];
+let skyColorsTo = [];
+let skyColorsLerpA = [];
+let skyColorsLerpB = [];
+let skyColorsLerpC = [];
+let skyColorsLerpD = [];
+let skyEllipse = [];
+let skyLerpEllipseA = [];
+let skyLerpEllipseB = [];
+let skyLerpEllipseC = [];
+let skyLerpEllipseD = [];
+let brushWidth;
+let brushAmount;
+
 let x;
 let y;
 let w;
@@ -9,6 +23,53 @@ let polyBlurry2;//the distant building
 
 function setup() {
   createCanvas(windowWidth,windowHeight);
+
+
+  //Define the color arrays for lerpColor().
+
+  //The colors are: [0]navy blue, [1]sea green, [2]bright yellow, [3]orange red, [4]dark red
+  skyColorsFrom.push(color(62, 84, 143), color(125, 155, 147), color(255, 214, 101), 
+  color(193, 113, 67), color(205, 74, 74));
+
+  //The colors are: [0]sea green, [1]bright yellow, [2]orange red
+  skyColorsTo.push(color(125, 155, 147), color(255, 214, 101), color(193, 113, 67), color(205, 74, 74));
+
+  //Build four arrays: skyColorLerp A/B/C/D to contain the lerpColor() results between the 
+  //skyColorsFrom[] and skyColorsTo[]
+
+  //A
+  for(let i = 1; i < 8; i++){
+
+    skyColorsLerpA.push(lerpColor(skyColorsFrom[0], skyColorsTo[0], i * 0.125));
+
+  }
+
+  //B
+  for(let i = 1; i < 8; i++){
+
+    skyColorsLerpB.push(lerpColor(skyColorsFrom[1], skyColorsTo[1], i * 0.125));
+
+  }
+
+  //C
+  for(let i = 1; i < 8; i++){
+
+    skyColorsLerpC.push(lerpColor(skyColorsFrom[2], skyColorsTo[2], i * 0.125));
+
+  }
+
+  //D
+  for(let i = 1; i < 8; i++){
+
+    skyColorsLerpD.push(lerpColor(skyColorsFrom[3], skyColorsTo[3], i * 0.125));
+
+  }
+
+  //The brushWidth of the ellipse is 1/64 of the height of canvas.
+  brushWidth = height / 64;
+
+  //The amount of brush is the window's width divides the brush's width.
+  brushAmount = width / brushWidth;
 
   updateDimensions();
 
@@ -25,7 +86,9 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  //background(255);
+
+  drawSkyEllipse();
 
   //waterColor(poly,color(71,41,50));
 
@@ -68,8 +131,8 @@ function draw() {
   endShape(CLOSE);
 
   waterColor(polyShadow,71,41,50,20);
-  waterColor(polyBlurry1,133,123,20,10);//transition
-  waterColor(polyBlurry2,133,150,30,5);//distant building
+  waterColor(polyBlurry1,20,70,10,10);//transition
+  waterColor(polyBlurry2,40,90,30,5);//distant building
 }
 
 // function building(){
@@ -250,8 +313,8 @@ function distribute(x){
 
 // 更新尺寸相关的变量
 function updateDimensions() {
-  w = windowWidth;
-  h = windowHeight;
+  w = width;
+  h = height;
   x = w / 32;
   y = h / 32;
 
@@ -262,7 +325,71 @@ function updateDimensions() {
 
 // 响应窗口大小变化
 function windowResized() {
+  clear();
+  brushWidth = height / 64;
+  brushAmount = width / brushWidth;
+  drawSkyEllipse();
   resizeCanvas(windowWidth, windowHeight);
   updateDimensions();
 }
 
+//Draw the first line of ellipses using lerpColor() and color arrays.
+function drawSkyEllipse() {
+  for (let i = 0; i < skyColorsFrom.length; i++) {
+
+    for (let j = 0; j < brushAmount; j++) {
+
+      noStroke();
+      fill(skyColorsFrom[i]);
+      skyEllipse.push(ellipse(brushWidth / 2 + brushWidth * j, brushWidth / 2 + height / 8 * i, brushWidth));
+
+    }
+
+  }
+
+  for (let i = 0; i < 7; i++) {
+
+    for (let j = 0; j < brushAmount; j++) {
+
+      fill(skyColorsLerpA[i]);
+      skyLerpEllipseA.push(ellipse(brushWidth / 2 + brushWidth * j, brushWidth / 2 + brushWidth * (i + 1), brushWidth));
+
+    }
+
+  }
+
+  for (let i = 0; i < 7; i++) {
+
+    for (let j = 0; j < brushAmount; j++) {
+
+      fill(skyColorsLerpB[i]);
+      skyLerpEllipseB.push(ellipse(brushWidth / 2 + brushWidth * j, brushWidth / 2 + brushWidth * (i + 9), brushWidth));
+
+    }
+
+  }
+
+  for (let i = 0; i < 7; i++) {
+
+    for (let j = 0; j < brushAmount; j++) {
+
+      fill(skyColorsLerpC[i]);
+      skyLerpEllipseC.push(ellipse(brushWidth / 2 + brushWidth * j, brushWidth / 2 + brushWidth * (i + 17), brushWidth));
+
+    }
+
+
+
+  }
+
+  for (let i = 0; i < 7; i++) {
+
+    for (let j = 0; j < brushAmount; j++) {
+
+      fill(skyColorsLerpD[i]);
+      skyLerpEllipseD.push(ellipse(brushWidth / 2 + brushWidth * j, brushWidth / 2 + brushWidth * (i + 25), brushWidth));
+
+    }
+
+  }
+}
