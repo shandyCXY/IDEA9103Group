@@ -16,8 +16,15 @@ let inc = 0.1;
 let scl = 10; //segmet size
 let cols, rows;
 
-let x;
-let y;
+let waterColorsFrom = [];
+let waterColorsTo = [];
+let waterColorsLerpA = [];
+let waterColorsLerpB = [];
+let waterColorsLerpC = [];
+let waterColorsLerpD = [];
+
+let unitX;
+let unitY;
 let w;
 let h;
 
@@ -75,12 +82,59 @@ function setup() {
   //The amount of brush is the window's width divides the brush's width.
   brushAmount = width / brushWidth;
 
+   // cols = floor(windowWidth / scl);
+  // rows = floor(windowHeight / scl);
+  cols=windowWidth/scl;
+  rows=windowHeight/scl;
+  //Define the color arrays for lerpColor().
+
+  //The colors are: [0]navy blue, [1]sea green, [2]bright yellow, [3]orange red, [4]dark red
+  waterColorsFrom.push(
+    //color(205, 74, 74),
+    color(193, 113, 67),
+    color(255, 214, 101),
+    color(125, 155, 147),
+    color(62, 84, 143)
+
+  );
+
+  //The colors are: [0]sea green, [1]bright yellow, [2]orange red
+  waterColorsTo.push(
+    color(205, 74, 74),
+    color(193, 113, 67),
+    color(255, 214, 101),
+    color(125, 155, 147)
+  );
+
+  //Build four arrays: skyColorLerp A/B/C/D to contain the lerpColor() results between the
+  //skyColorsFrom[] and skyColorsTo[]
+
+  //A
+  for (let k = 1; k < 9; k++) {
+    waterColorsLerpA.push(lerpColor(waterColorsFrom[0], waterColorsTo[0], k* 0.125));
+  }
+
+  //B
+  for (let k = 1; k < 9; k++) {
+    waterColorsLerpB.push(lerpColor(waterColorsFrom[1], waterColorsTo[1], k * 0.125));
+  }
+
+  //C
+  for (let k = 1; k < 9; k++) {
+    waterColorsLerpC.push(lerpColor(waterColorsFrom[2], waterColorsTo[2], k * 0.125));
+  }
+
+  //D
+  for (let k = 1; k < 9; k++) {
+    waterColorsLerpD.push(lerpColor(waterColorsFrom[3], waterColorsTo[3], k* 0.125));
+  }
+
   updateDimensions();
 
   w=windowWidth;
   h=windowHeight;
-  x=w/32;//unit coordinate for x
-  y=h/32;//unit coordinate for y
+  unitX=w/32;//unit coordinate for x
+  unitY=h/32;//unit coordinate for y
 
   shadow();
   blurryBg1();//transition
@@ -105,35 +159,35 @@ function draw() {
 
   //the building
   beginShape();
-  vertex(0,16*y);
-  vertex(0,13.8*y);
-  vertex(x,13.8*y);
-  vertex(2*x,11*y);
-  vertex(3*x,11*y);
-  vertex(3.4*x,9*y);
-  vertex(4*x,11*y);
-  vertex(4.7*x,10.5*y);
-  vertex(4.7*x,4*y);
-  vertex(4.9*x,4*y);
-  vertex(5.15*x,0.5*y);
-  vertex(5.35*x,0.5*y);
-  vertex(5.75*x,3*y);
-  vertex(6*x,4*y);
-  vertex(6*x,11*y);
-  vertex(6.25*x,9*y);
-  vertex(7*x,8*y);
-  vertex(7.5*x,7*y);
-  vertex(8*x,8*y);
-  vertex(8.7*x,9*y);
-  vertex(8.7*x,10*y);
-  vertex(10*x,10*y);
-  vertex(10.5*x,11*y);
-  vertex(11.2*x,10*y);
-  vertex(11.5*x,11*y);
-  vertex(12*x,12*y);
-  vertex(13*x,13.8*y);
-  vertex(15*x,13.8*y);
-  vertex(16*x,16*y);
+  vertex(0,16*unitY);
+  vertex(0,13.8*unitY);
+  vertex(unitX,13.8*unitY);
+  vertex(2*unitX,11*unitY);
+  vertex(3*unitX,11*unitY);
+  vertex(3.4*unitX,9*unitY);
+  vertex(4*unitX,11*unitY);
+  vertex(4.7*unitX,10.5*unitY);
+  vertex(4.7*unitX,4*unitY);
+  vertex(4.9*unitX,4*unitY);
+  vertex(5.15*unitX,0.5*unitY);
+  vertex(5.35*unitX,0.5*unitY);
+  vertex(5.75*unitX,3*unitY);
+  vertex(6*unitX,4*unitY);
+  vertex(6*unitX,11*unitY);
+  vertex(6.25*unitX,9*unitY);
+  vertex(7*unitX,8*unitY);
+  vertex(7.5*unitX,7*unitY);
+  vertex(8*unitX,8*unitY);
+  vertex(8.7*unitX,9*unitY);
+  vertex(8.7*unitX,10*unitY);
+  vertex(10*unitX,10*unitY);
+  vertex(10.5*unitX,11*unitY);
+  vertex(11.2*unitX,10*unitY);
+  vertex(11.5*unitX,11*unitY);
+  vertex(12*unitX,12*unitY);
+  vertex(13*unitX,13.8*unitY);
+  vertex(15*unitX,13.8*unitY);
+  vertex(16*unitX,16*unitY);
   endShape(CLOSE);
 
   waterColor(polyShadow,71,41,50,20);
@@ -146,9 +200,9 @@ function waterSurface(){
   randomSeed(45);
   translate(0, windowHeight / 2);
   let yoff = 0;
-  for (let i = 0; i < rows / 2; i++) {//"i" stands for "y"
+  for (let y = 0; y < rows / 2; y++) {//"i" stands for "y"
     let xoff= 0;
-    for (let j = 0; j < cols; j++) {//"j" stands for "x"
+    for (let x = 0; x < cols; x++) {//"j" stands for "x"
       let angle = noise(xoff, yoff) * TWO_PI;
       let v = p5.Vector.fromAngle(angle * -0.2);
       xoff += inc;
@@ -156,28 +210,32 @@ function waterSurface(){
       noStroke();
 
       push();
-      translate(i * scl, j * scl);
+      translate(x * scl, y * scl);
       rotate(v.heading());
       rect(0, 0, 23, 4);
       pop();
     }
+    console.log(y);
 
-    if (i < 9) {
-      fill(skyColorsLerpD[i]);
+    if (y < 8) {
+      fill(waterColorsLerpD[y]);
     } 
-    else if (9 < i < 18) {
-      fill(skyColorsLerpC[i % 9]);  
-    } 
-    else if (18 < i < 27) {
-      fill(skyColorsLerpB[i % 9]);
+
+    else if (y>=8 && y<18){
+      fill(waterColorsLerpC[y % 8]);  
+    }
+    else if (y>=18 && y<=27) {
+      fill(waterColorsLerpB[y % 8]);
  
     } 
     else {
-      fill(skyColorsLerpA[i % 9]);
+      fill(waterColorsLerpA[y % 8]);
       
     }
     yoff += inc; 
   }
+
+  //reference web:https://www.youtube.com/watch?v=BjoM9oKOAKY&t=3s.
   pop();
 }
 
@@ -217,19 +275,19 @@ function waterSurface(){
 
 function shadow(){
   const v=[];
-  v.push(createVector(0,15.5*y));
-  v.push(createVector(x,15.5*y));
-  v.push(createVector(3*x,15*y));
-  v.push(createVector(4.9*x,15*y));
-  v.push(createVector(4.9*x,h));
-  v.push(createVector(6.5*x,h));
-  v.push(createVector(6.5*x,14.5*y));
-  v.push(createVector(8*x,15*y));
-  v.push(createVector(10*x,14.8*y));
-  v.push(createVector(11.2*x,15.2*y));
-  v.push(createVector(12*x,15.3*y));
-  v.push(createVector(15*x,14.3*y));
-  v.push(createVector(15.5*x,15.5*y));
+  v.push(createVector(0,15.5*unitY));
+  v.push(createVector(unitX,15.5*unitY));
+  v.push(createVector(3*unitX,15*unitY));
+  v.push(createVector(4.9*unitX,15*unitY));
+  v.push(createVector(4.9*unitX,h));
+  v.push(createVector(6.5*unitX,h));
+  v.push(createVector(6.5*unitX,14.5*unitY));
+  v.push(createVector(8*unitX,15*unitY));
+  v.push(createVector(10*unitX,14.8*unitY));
+  v.push(createVector(11.2*unitX,15.2*unitY));
+  v.push(createVector(12*unitX,15.3*unitY));
+  v.push(createVector(15*unitX,14.3*unitY));
+  v.push(createVector(15.5*unitX,15.5*unitY));
   polyShadow=new Poly(v);
 }
 
@@ -252,26 +310,26 @@ function blurryBg1(){
   // v.push(createVector(29.4*x,10.7*y));
   // v.push(createVector(30*x,12*y));
   // v.push(createVector(32*x,16*y));
-  v.push(createVector(16*x,16*y));
+  v.push(createVector(16*unitX,16*unitY));
   for (let i=0;i<random(5);i++){
     let xScale=random(16,24);
     let yScale=random(15,16);
-    v.push(createVector(xScale*x,yScale*y));
+    v.push(createVector(xScale*unitX,yScale*unitY));
   }
-  v.push(createVector(24*x,16*y));
+  v.push(createVector(24*unitX,16*unitY));
   polyBlurry1=new Poly(v);
 }
 
 function blurryBg2(){
   const v=[];
-  v.push(createVector(20*x,16*y));
+  v.push(createVector(24*unitX,16*unitY));
   for (let i=0;i<random(10);i++){
     let xScale=constrain(random(24,32)*i/2,24,32);
     //let xScale=random(24,32)*i/2;
     let yScale=random(5,16);
-    v.push(createVector(xScale*x,yScale*y));
+    v.push(createVector(xScale*unitX,yScale*unitY));
   }
-  v.push(createVector(32*x,16*y));
+  v.push(createVector(32*unitX,16*unitY));
   polyBlurry2=new Poly(v);
 }
 
@@ -362,8 +420,8 @@ function distribute(x){
 function updateDimensions() {
   w = width;
   h = height;
-  x = w / 32;
-  y = h / 32;
+  unitX = w / 32;
+  unitY = h / 32;
 
   shadow();
   blurryBg1();
