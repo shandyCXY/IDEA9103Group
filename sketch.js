@@ -451,6 +451,7 @@ function drawSkyEllipse() {
   drawEllipse(skyLerpEllipseD, skyColorsLerpD, 25);
 }
 
+
 //draw ellipses between each two basic color lines
 //r: rows
 //colorArray: each array for sky
