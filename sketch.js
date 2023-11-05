@@ -116,52 +116,14 @@ function draw() {
   //background(255);
 
   drawSkyEllipse();
+  //color of sky
 
   waterSurface();
-
   //waterColor(poly,color(71,41,50));
 
+  drawBuilding();
   //color of building
-  fill(71, 41, 50);
-  strokeWeight(2);
-  stroke(43, 49, 45);
-
-  //the building
-  beginShape();
-  vertex(0, 16 * unitY);
-  vertex(0, 13.8 * unitY);
-  vertex(unitX, 13.8 * unitY);
-  vertex(2 * unitX, 11 * unitY);
-  vertex(3 * unitX, 11 * unitY);
-  vertex(3.4 * unitX, 9 * unitY);
-  vertex(4 * unitX, 11 * unitY);
-  vertex(4.7 * unitX, 10.5 * unitY);
-  vertex(4.7 * unitX, 4 * unitY);
-  vertex(4.9 * unitX, 4 * unitY);
-  vertex(5.15 * unitX, 0.5 * unitY);
-  vertex(5.35 * unitX, 0.5 * unitY);
-  vertex(5.75 * unitX, 3 * unitY);
-  vertex(6 * unitX, 4 * unitY);
-  vertex(6 * unitX, 11 * unitY);
-  vertex(6.25 * unitX, 9 * unitY);
-  vertex(7 * unitX, 8 * unitY);
-  vertex(7.5 * unitX, 7 * unitY);
-  vertex(8 * unitX, 8 * unitY);
-  vertex(8.7 * unitX, 9 * unitY);
-  vertex(8.7 * unitX, 10 * unitY);
-  vertex(10 * unitX, 10 * unitY);
-  vertex(10.5 * unitX, 11 * unitY);
-  vertex(11.2 * unitX, 10 * unitY);
-  vertex(11.5 * unitX, 11 * unitY);
-  vertex(12 * unitX, 12 * unitY);
-  vertex(13 * unitX, 13.8 * unitY);
-  vertex(15 * unitX, 13.8 * unitY);
-  vertex(16 * unitX, 16 * unitY);
-  endShape(CLOSE);
-
-  waterColor(polyShadow, 71, 41, 50, 20);
-  waterColor(polyBlurry1, 20, 70, 10, 10); //transition
-  waterColor(polyBlurry2, 40, 90, 30, 5); //distant building
+  
 }
 
 function waterSurface() {
@@ -238,6 +200,49 @@ function waterSurface() {
 //   v.push(createVector(16*x,16*y));
 //   polyBuilding=new Poly(v);
 // }
+
+function drawBuilding(){
+  fill(71, 41, 50);
+  strokeWeight(2);
+  stroke(43, 49, 45);
+
+  //the building
+  beginShape();
+  vertex(0, 16 * unitY);
+  vertex(0, 13.8 * unitY);
+  vertex(unitX, 13.8 * unitY);
+  vertex(2 * unitX, 11 * unitY);
+  vertex(3 * unitX, 11 * unitY);
+  vertex(3.4 * unitX, 9 * unitY);
+  vertex(4 * unitX, 11 * unitY);
+  vertex(4.7 * unitX, 10.5 * unitY);
+  vertex(4.7 * unitX, 4 * unitY);
+  vertex(4.9 * unitX, 4 * unitY);
+  vertex(5.15 * unitX, 0.5 * unitY);
+  vertex(5.35 * unitX, 0.5 * unitY);
+  vertex(5.75 * unitX, 3 * unitY);
+  vertex(6 * unitX, 4 * unitY);
+  vertex(6 * unitX, 11 * unitY);
+  vertex(6.25 * unitX, 9 * unitY);
+  vertex(7 * unitX, 8 * unitY);
+  vertex(7.5 * unitX, 7 * unitY);
+  vertex(8 * unitX, 8 * unitY);
+  vertex(8.7 * unitX, 9 * unitY);
+  vertex(8.7 * unitX, 10 * unitY);
+  vertex(10 * unitX, 10 * unitY);
+  vertex(10.5 * unitX, 11 * unitY);
+  vertex(11.2 * unitX, 10 * unitY);
+  vertex(11.5 * unitX, 11 * unitY);
+  vertex(12 * unitX, 12 * unitY);
+  vertex(13 * unitX, 13.8 * unitY);
+  vertex(15 * unitX, 13.8 * unitY);
+  vertex(16 * unitX, 16 * unitY);
+  endShape(CLOSE);
+
+  waterColor(polyShadow, 71, 41, 50, 20);
+  waterColor(polyBlurry1, 20, 70, 10, 10); //transition
+  waterColor(polyBlurry2, 40, 90, 30, 5); //distant building
+}
 
 function shadow() {
   const v = [];
